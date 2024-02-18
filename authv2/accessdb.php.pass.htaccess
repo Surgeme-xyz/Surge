@@ -1,0 +1,25 @@
+<?php
+// Database file path
+$dbFilePath = 'D:/Surge/Surge.accdb';
+
+try {
+    $dsn = "odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=$dbFilePath";
+    $pdo = new PDO($dsn);
+
+    // Set PDO attributes
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Example query
+    $query = "SELECT * FROM Users";
+    $statement = $pdo->query($query);
+
+    // Fetch data
+    while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        // Process each row
+        print_r($row);
+    }
+} catch (PDOException $e) {
+    // Handle database connection errors
+    die("Database Connection failed: " . $e->getMessage());
+}
+?>
